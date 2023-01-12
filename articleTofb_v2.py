@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os
+import os,shutil
 import time
 
 
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         try:
             if hello is not False:
                 fb_post(hello)
-                os.rmdir(Image_folder)
+                shutil.rmtree(Image_folder)
             else:
                 pass
         except:
