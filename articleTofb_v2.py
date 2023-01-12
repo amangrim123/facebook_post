@@ -122,6 +122,8 @@ if __name__ == "__main__":
     print("start project")
     # page_id = 101071396211987
     while True:
+        if (os.path.exists(Image_folder)) is not True:
+            os.mkdir(Image_folder)
         hello = main()
         try:
             if hello is not False:
