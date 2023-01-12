@@ -101,7 +101,6 @@ def main():
             post_link = (itema.find("comments").text).replace("#respond",'')
             return post_link 
         else:
-            print("no post available") 
             return False
     except:
         post_link = (itema.find("comments").text).replace("#respond",'')
