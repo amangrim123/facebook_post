@@ -177,7 +177,6 @@ if __name__ == "__main__":
     print("start project")
 
     while True:
-        print("yes")
         source_list = ["bulletinxp","therconline"]
         for sour_name in source_list:
 
