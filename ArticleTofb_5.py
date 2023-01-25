@@ -56,7 +56,7 @@ def add_text_on_image(img_path):
     rr2 = rr1.read()
    
     # Create font
-    font = ImageFont.truetype(r'fonts\ARLRDBD.TTF', 40)
+    font = ImageFont.truetype(Font_folder+'\ARLRDBD.TTF', 40)
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
@@ -172,6 +172,7 @@ if __name__ == "__main__":
 
     Script_path = os.getcwd()
     Image_folder = os.path.join(Script_path,"image")
+    Font_folder = os.path.join(Script_path,"fonts")
     
     ######################################################
     print(" === start project ==== ")
