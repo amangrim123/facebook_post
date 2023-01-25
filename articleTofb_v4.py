@@ -174,7 +174,7 @@ if __name__ == "__main__":
     Image_folder = os.path.join(Script_path,"image")
     
     ######################################################
-    print("start project")
+    print(" === start project ==== ")
 
     while True:
         source_list = ["bulletinxp","therconline"]
