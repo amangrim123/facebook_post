@@ -191,13 +191,11 @@ if __name__ == "__main__":
             if (os.path.exists(Image_folder)) is not True:
                 os.mkdir(Image_folder)
             check_post = main(vari[0],vari[1])
-            try:
-                if check_post is not False:
-                    fb_post(check_post,vari[0])
-                    shutil.rmtree(Image_folder)
-                else:
-                    pass
-            except:    
+            if check_post is not False:
+                fb_post(check_post,vari[0])
+                shutil.rmtree(Image_folder)
+            else:
+                pass    
                 print("=================== please check the tocken ======================")    
         time.sleep(15)
         
