@@ -56,7 +56,7 @@ def add_text_on_image(img_path):
     rr2 = rr1.read()
    
     # Create font
-    font = ImageFont.load_default(40)
+    font = ImageFont.truetype(Font_folder+'\ARLRDBD.TTF', 40,encoding="unic")
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
