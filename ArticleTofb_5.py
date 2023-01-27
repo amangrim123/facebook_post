@@ -17,7 +17,7 @@ def break_long_title(my_txt):
     rr1 = open('texta.txt','r')
     rr2 = rr1.read()
     ff3 = rr2.split(' ')
-    for i in range(8,len(ff3),8):
+    for i in range(7,len(ff3),7):
         ffa =  open("texta.txt",'r')
         new_ff = ffa.read()
         add_new = new_ff.replace(ff3[i]+' ',ff3[i]+"\n")
