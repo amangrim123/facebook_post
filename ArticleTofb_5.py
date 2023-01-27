@@ -56,7 +56,7 @@ def add_text_on_image(img_path):
     rr2 = rr1.read()
    
     # Create font
-    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 35,encoding="unic")
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 32,encoding="unic")
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
@@ -178,7 +178,7 @@ if __name__ == "__main__":
     print(" === start project ==== ")
 
     while True:
-        source_list = ["therconline"]
+        source_list = ["therconline","bulletinxp","theleafdesk"]
         for sour_name in source_list:
 
             vari = Variable(sour_name)
@@ -192,11 +192,13 @@ if __name__ == "__main__":
             if (os.path.exists(Image_folder)) is not True:
                 os.mkdir(Image_folder)
             check_post = main(vari[0],vari[1])
-            if check_post is not False:
-                fb_post(check_post,vari[0])
-                shutil.rmtree(Image_folder)
-            else:
-                pass    
+            try:
+                if check_post is not False:
+                    fb_post(check_post,vari[0])
+                    shutil.rmtree(Image_folder)
+                else:
+                    pass   
+            except:     
                 print("=================== please check the tocken ======================")    
         time.sleep(15)
         
