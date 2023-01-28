@@ -200,6 +200,7 @@ if __name__ == "__main__":
                 if check_post is not False:
                     fb_post(check_post,vari[0])
                     shutil.rmtree(Image_folder)
+                    print("done = ",sour_name)
                 else:
                     pass  
             except:         
