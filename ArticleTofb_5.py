@@ -129,7 +129,7 @@ def fb_post(post_u,Source_v):
         save1.write(str(aaa1))
 
     for aa in feature_image:
-        image_n = download_img(aa['src'],Image_folder)
+        image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
         image_get = os.path.join(Image_folder,image_n+".jpg")
         images_list.append(image_get)
     
