@@ -26,7 +26,7 @@ def Variable(source_name):
     "POST_TITLE" : facebook_table[7],
     "PAGE_ID" : facebook_table[8],
     "PAGE_TOKEN" : facebook_table[9],
-    "IMAGE_SRC":facebook_table[10],
+    "IMAGE_SRC": facebook_table[10],
   }
 
   return variables,mydb

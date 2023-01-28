@@ -57,6 +57,7 @@ def add_text_on_image(img_path):
    
     # Create font
     font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
+    # font = ImageFont.truetype('fonts\ARLRDBD.TTF')
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
@@ -106,13 +107,15 @@ def multiPostImage(group_id,img_list,auth_token):
 def download_img(img_url,img_folder):
     get_nme = img_url.split("/")[-1]
     image_name = get_nme.split(".")[0]
-    f = open(f'{img_folder}/{image_name}.jpg','wb')
+    f = open(f'{img_folder}/{image_name}.png','wb')
     f.write(requests.get(img_url).content)
     f.close()
 
     return image_name    
 
 def fb_post(post_u,Source_v):
+    # print("start pto")
+    # print(post_u)
 
     images_list = []
 
@@ -129,18 +132,19 @@ def fb_post(post_u,Source_v):
         save1.write(str(aaa1))
 
     for aa in feature_image:
+        # print(aa[Source_v['IMAGE_SRC']])
         image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".jpg")
+        image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
     
     for qw in internelImage:
         image_n = download_img(qw['src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".jpg")
+        image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
 
     for qw12 in internelImage_1:
         image_n = download_img(qw12['src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".jpg")
+        image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
     
     break_long_title(str(aaa1))
@@ -197,8 +201,8 @@ if __name__ == "__main__":
                     fb_post(check_post,vari[0])
                     shutil.rmtree(Image_folder)
                 else:
-                    pass   
-            except:     
+                    pass  
+            except:         
                 print("=================== please check the tocken ======================")    
         time.sleep(15)
         
