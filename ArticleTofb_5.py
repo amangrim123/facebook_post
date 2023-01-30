@@ -182,7 +182,7 @@ if __name__ == "__main__":
     print(" === start project ==== ")
 
     while True:
-        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta"]
+        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta","passaparolamagazine"]
         for sour_name in source_list:
 
             vari = Variable(sour_name)
