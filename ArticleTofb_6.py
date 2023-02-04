@@ -42,37 +42,11 @@ def add_box_on_image(img_path):
 
 def img_resize(img_path):
     image = Image.open(img_path)
-    new_image = image.resize((1160, 630))
-    new_image.save(img_path)
-    add_box_on_image(img_path)    
-
-def add_text_on_image(img_path):
-    bg = Image.open(img_path).convert('RGB')
-    x = bg.width//2
-    y = bg.height//2
-
-    # The text we want to add
-    rr1 = open('texta.txt','r')
-    rr2 = rr1.read()
-   
-    # Create font
-    # font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
-    font = ImageFont.truetype('fonts\ARLRDBD.TTF')
-
-    # Create piece of canvas to draw text on and blur
-    blurred = Image.new('RGBA', bg.size)
-    draw = ImageDraw.Draw(blurred)
-    draw.text(xy=(572,552), text=rr2, fill='blue', font=font, anchor='mm')
-    blurred = blurred.filter(ImageFilter.BoxBlur(1))
-
-    # Paste soft text onto background
-    bg.paste(blurred,blurred)
-
-    # Draw on sharp text
-    draw = ImageDraw.Draw(bg)
-    draw.text(xy=(570, 550), text=rr2, fill='white',font=font, anchor='mm')
-
-    bg.save(img_path)
+    logo = Image.open('addimag_cv.png')
+    image_copy = image.copy()
+    position = ((0), (0))
+    image_copy.paste(logo, position,mask=logo)
+    image_copy.save(img_path)
 
 def postImage(group_id, img_url,auth_token):
     url = f"https://graph.facebook.com/{group_id}/photos?access_token=" + auth_token
@@ -169,7 +143,6 @@ def main(Source_v,mydb):
     else:
         return False
 
-
 if __name__ == "__main__":
 
     ################## script path #######################
@@ -182,7 +155,7 @@ if __name__ == "__main__":
     print(" === start project ==== ")
 
     while True:
-        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta"]
+        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta","passaparolamagazine"]
         for sour_name in source_list:
 
             vari = Variable(sour_name)
@@ -196,11 +169,14 @@ if __name__ == "__main__":
             if (os.path.exists(Image_folder)) is not True:
                 os.mkdir(Image_folder)
             check_post = main(vari[0],vari[1])
-            if check_post is not False:
-                fb_post(check_post,vari[0])
-                shutil.rmtree(Image_folder)
-            else:
-                pass          
-            print("=================== please check the tocken ======================")    
+            try:
+                if check_post is not False:
+                    fb_post(check_post,vari[0])
+                    shutil.rmtree(Image_folder)
+                    print("done = ",sour_name)
+                else:
+                    pass  
+            except:         
+                print("=================== please check the tocken ======================")    
         time.sleep(15)
         
