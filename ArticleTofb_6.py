@@ -25,28 +25,47 @@ def break_long_title(my_txt):
             final_f.write(add_new)
 
 def add_box_on_image(img_path):
-    image = cv2.imread(img_path)
-    overlay = image.copy()
-    # Rectangle parameters
-    x, y, w, h = 0, 470, 1200, 300  
-    # A filled rectangle
-    cv2.rectangle(overlay, (x, y), (x+w, y+h), (0,0,0), -1)  
-    
-    alpha = 0.7 # Transparency factor.
-    
-    # Following line overlays transparent rectangle
-    # over the image
-    image_new = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 1)
-    cv2.imwrite(img_path, image_new)
-    add_text_on_image(img_path)
-
-def img_resize(img_path):
     image = Image.open(img_path)
     logo = Image.open('addimag_cv.png')
     image_copy = image.copy()
     position = ((0), (0))
     image_copy.paste(logo, position,mask=logo)
     image_copy.save(img_path)
+    add_text_on_image(img_path)
+
+def img_resize(img_path):
+    image = Image.open(img_path)
+    new_image = image.resize((1160, 630))
+    new_image.save(img_path)
+    add_box_on_image(img_path)    
+
+def add_text_on_image(img_path):
+    bg = Image.open(img_path).convert('RGB')
+    x = bg.width//2
+    y = bg.height//2
+
+    # The text we want to add
+    rr1 = open('texta.txt','r')
+    rr2 = rr1.read()
+   
+    # Create font
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
+    # font = ImageFont.truetype('fonts\ARLRDBD.TTF')
+
+    # Create piece of canvas to draw text on and blur
+    blurred = Image.new('RGBA', bg.size)
+    draw = ImageDraw.Draw(blurred)
+    draw.text(xy=(572,552), text=rr2, fill='blue', font=font, anchor='mm')
+    blurred = blurred.filter(ImageFilter.BoxBlur(1))
+
+    # Paste soft text onto background
+    bg.paste(blurred,blurred)
+
+    # Draw on sharp text
+    draw = ImageDraw.Draw(bg)
+    draw.text(xy=(570, 550), text=rr2, fill='white',font=font, anchor='mm')
+
+    bg.save(img_path)
 
 def postImage(group_id, img_url,auth_token):
     url = f"https://graph.facebook.com/{group_id}/photos?access_token=" + auth_token
