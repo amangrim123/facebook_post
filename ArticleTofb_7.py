@@ -82,7 +82,7 @@ def add_text_on_image(img_path):
 
     # Draw on sharp text
     draw = ImageDraw.Draw(bg)
-    draw.text(xy=(582,542), text=rr2, fill='white',font=font, anchor='mm')
+    draw.text(xy=(582,540), text=rr2, fill='white',font=font, anchor='mm')
 
     draw = ImageDraw.Draw(bg)
     draw.text(xy=(590, 597), text=sour_name.upper(), fill="green",font=font, anchor='mm')
