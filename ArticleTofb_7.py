@@ -41,7 +41,7 @@ def add_site_name_on_image(img_path):
     draw.text(xy=(590, 597), text=sour_name.upper(), fill="green",font=font, anchor='mm')
 
     bg.save(img_path)
-    add_text_on_image(img_path)            
+              
 
 def add_box_on_image(img_path):
     image = Image.open(img_path)
@@ -50,7 +50,7 @@ def add_box_on_image(img_path):
     position = ((0), (0))
     image_copy.paste(logo, position,mask=logo)
     image_copy.save(img_path)
-    add_site_name_on_image(img_path)
+    add_text_on_image(img_path)  
 
 def img_resize(img_path):
     image = Image.open(img_path)
@@ -74,7 +74,7 @@ def add_text_on_image(img_path):
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
     draw = ImageDraw.Draw(blurred)
-    draw.text(xy=(572,549), text=rr2, fill='blue', font=font, anchor='mm')
+    draw.text(xy=(582,542), text=rr2, fill='blue', font=font, anchor='mm')
     blurred = blurred.filter(ImageFilter.BoxBlur(1))
 
     # Paste soft text onto background
@@ -82,7 +82,10 @@ def add_text_on_image(img_path):
 
     # Draw on sharp text
     draw = ImageDraw.Draw(bg)
-    draw.text(xy=(570, 551), text=rr2, fill='white',font=font, anchor='mm')
+    draw.text(xy=(582,542), text=rr2, fill='white',font=font, anchor='mm')
+
+    draw = ImageDraw.Draw(bg)
+    draw.text(xy=(590, 597), text=i.upper(), fill="green",font=font, anchor='mm')
 
     bg.save(img_path)
 
