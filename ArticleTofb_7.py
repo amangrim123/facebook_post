@@ -74,7 +74,7 @@ def add_text_on_image(img_path):
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
     draw = ImageDraw.Draw(blurred)
-    draw.text(xy=(572,552), text=rr2, fill='blue', font=font, anchor='mm')
+    draw.text(xy=(572,555), text=rr2, fill='blue', font=font, anchor='mm')
     blurred = blurred.filter(ImageFilter.BoxBlur(1))
 
     # Paste soft text onto background
@@ -82,7 +82,7 @@ def add_text_on_image(img_path):
 
     # Draw on sharp text
     draw = ImageDraw.Draw(bg)
-    draw.text(xy=(570, 550), text=rr2, fill='white',font=font, anchor='mm')
+    draw.text(xy=(570, 553), text=rr2, fill='white',font=font, anchor='mm')
 
     bg.save(img_path)
 
