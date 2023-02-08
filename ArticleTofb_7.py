@@ -24,21 +24,33 @@ def break_long_title(my_txt):
         with open("texta.txt",'w') as final_f:
             final_f.write(add_new)
 
+def add_site_name_on_image(img_path):
+    bg = Image.open(img_path).convert('RGB')
+    x = bg.width//2
+    y = bg.height//2
+
+    # The text we want to add
+    # rr1 = open('texta.txt','r')
+    # rr2 = rr1.read()
+   
+    # Create font
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 25)
+
+    # Draw on sharp text
+    draw = ImageDraw.Draw(bg)
+    draw.text(xy=(590, 597), text=sour_name.upper(), fill="green",font=font, anchor='mm')
+
+    bg.save(img_path)
+    add_text_on_image(img_path)            
+
 def add_box_on_image(img_path):
-    image = cv2.imread(img_path)
-    overlay = image.copy()
-    # Rectangle parameters
-    x, y, w, h = 0, 470, 1200, 300  
-    # A filled rectangle
-    cv2.rectangle(overlay, (x, y), (x+w, y+h), (0,0,0), -1)  
-    
-    alpha = 0.7 # Transparency factor.
-    
-    # Following line overlays transparent rectangle
-    # over the image
-    image_new = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 1)
-    cv2.imwrite(img_path, image_new)
-    add_text_on_image(img_path)
+    image = Image.open(img_path)
+    logo = Image.open('box_on.png')
+    image_copy = image.copy()
+    position = ((0), (0))
+    image_copy.paste(logo, position,mask=logo)
+    image_copy.save(img_path)
+    add_site_name_on_image(img_path)
 
 def img_resize(img_path):
     image = Image.open(img_path)
