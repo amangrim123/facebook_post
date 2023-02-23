@@ -24,6 +24,26 @@ def break_long_title(my_txt):
         with open("texta.txt",'w') as final_f:
             final_f.write(add_new)
 
+def check_site_status():
+    mydb = mysql.connector.connect(  
+        host="64.227.176.243",
+        user="phpmyadmin",
+        password="Possibilities123.@",
+        database="facebook_post"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "SELECT Source_Name FROM post_fb where status = '1'"
+
+    mycursor.execute(sql)
+
+    facebook_table = mycursor.fetchall()
+    site_name = []
+    for ii in facebook_table:
+        site_name.append(ii[0])
+    return site_name            
+
 def add_site_name_on_image(img_path):
     bg = Image.open(img_path).convert('RGB')
     x = bg.width//2
@@ -196,7 +216,7 @@ if __name__ == "__main__":
     print(" === start project ==== ")
 
     while True:
-        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta","passaparolamagazine"]
+        source_list = check_site_status()
         for sour_name in source_list:
 
             vari = Variable(sour_name)
