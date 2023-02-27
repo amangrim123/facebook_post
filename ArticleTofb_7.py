@@ -172,16 +172,18 @@ def fb_post(post_u,Source_v):
         image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
         image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
-    
-    for qw in internelImage:
-        image_n = download_img(qw['src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".png")
-        images_list.append(image_get)
+    try:
+        for qw in internelImage:
+            image_n = download_img(qw['src'],Image_folder)
+            image_get = os.path.join(Image_folder,image_n+".png")
+            images_list.append(image_get)
 
-    for qw12 in internelImage_1:
-        image_n = download_img(qw12['src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".png")
-        images_list.append(image_get)
+        for qw12 in internelImage_1:
+            image_n = download_img(qw12['src'],Image_folder)
+            image_get = os.path.join(Image_folder,image_n+".png")
+            images_list.append(image_get)
+    except:
+        pass        
     
     break_long_title(str(aaa1))
     img_resize(images_list[0])

@@ -49,8 +49,8 @@ def add_text_on_image(img_path):
     rr2 = rr1.read()
    
     # Create font
-    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
-    # font = ImageFont.truetype('fonts\ARLRDBD.TTF')
+    # font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
+    font = ImageFont.truetype('fonts\ARLRDBD.TTF',30)
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
@@ -131,12 +131,13 @@ def fb_post(post_u,Source_v):
         images_list.append(image_get)
     
     for qw in internelImage:
-        image_n = download_img(qw['src'],Image_folder)
+        print(qw)
+        image_n = download_img(qw['data-src'],Image_folder)
         image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
 
     for qw12 in internelImage_1:
-        image_n = download_img(qw12['src'],Image_folder)
+        image_n = download_img(qw12['data-src'],Image_folder)
         image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
     
@@ -174,7 +175,7 @@ if __name__ == "__main__":
     print(" === start project ==== ")
 
     while True:
-        source_list = ["therconline","bulletinxp","theleafdesk","heraldoatlanta","passaparolamagazine"]
+        source_list = ["techllog"]
         for sour_name in source_list:
 
             vari = Variable(sour_name)
@@ -188,14 +189,14 @@ if __name__ == "__main__":
             if (os.path.exists(Image_folder)) is not True:
                 os.mkdir(Image_folder)
             check_post = main(vari[0],vari[1])
-            try:
-                if check_post is not False:
-                    fb_post(check_post,vari[0])
-                    shutil.rmtree(Image_folder)
-                    print("done = ",sour_name)
-                else:
-                    pass  
-            except:         
-                print("=================== please check the tocken ======================")    
+            # try:
+            if check_post is not False:
+                fb_post(check_post,vari[0])
+                shutil.rmtree(Image_folder)
+                print("done = ",sour_name)
+            else:
+                pass  
+            # except:         
+            #     print("=================== please check the tocken ======================")    
         time.sleep(15)
         
