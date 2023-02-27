@@ -5,6 +5,7 @@ import os,shutil
 import time
 from Config import Variable
 import cv2
+import logging
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 
@@ -24,14 +25,53 @@ def break_long_title(my_txt):
         with open("texta.txt",'w') as final_f:
             final_f.write(add_new)
 
+def check_site_status():
+    mydb = mysql.connector.connect(  
+        host="64.227.176.243",
+        user="phpmyadmin",
+        password="Possibilities123.@",
+        database="facebook_post"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "SELECT Source_Name FROM post_fb where Status = '0'"
+
+    mycursor.execute(sql)
+
+    facebook_table = mycursor.fetchall()
+    site_name = []
+    for ii in facebook_table:
+        site_name.append(ii[0])
+    return site_name            
+
+def add_site_name_on_image(img_path):
+    bg = Image.open(img_path).convert('RGB')
+    x = bg.width//2
+    y = bg.height//2
+
+    # The text we want to add
+    # rr1 = open('texta.txt','r')
+    # rr2 = rr1.read()
+   
+    # Create font
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 25)
+
+    # Draw on sharp text
+    draw = ImageDraw.Draw(bg)
+    draw.text(xy=(590, 597), text=sour_name.upper(), fill="green",font=font, anchor='mm')
+
+    bg.save(img_path)
+              
+
 def add_box_on_image(img_path):
     image = Image.open(img_path)
-    logo = Image.open('addimag_cv.png')
+    logo = Image.open('box_on.png')
     image_copy = image.copy()
     position = ((0), (0))
     image_copy.paste(logo, position,mask=logo)
     image_copy.save(img_path)
-    add_text_on_image(img_path)
+    add_text_on_image(img_path)  
 
 def img_resize(img_path):
     image = Image.open(img_path)
@@ -55,7 +95,7 @@ def add_text_on_image(img_path):
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
     draw = ImageDraw.Draw(blurred)
-    draw.text(xy=(572,552), text=rr2, fill='blue', font=font, anchor='mm')
+    draw.text(xy=(582,542), text=rr2, fill='blue', font=font, anchor='mm')
     blurred = blurred.filter(ImageFilter.BoxBlur(1))
 
     # Paste soft text onto background
@@ -63,7 +103,10 @@ def add_text_on_image(img_path):
 
     # Draw on sharp text
     draw = ImageDraw.Draw(bg)
-    draw.text(xy=(570, 550), text=rr2, fill='white',font=font, anchor='mm')
+    draw.text(xy=(582,540), text=rr2, fill='white',font=font, anchor='mm')
+
+    draw = ImageDraw.Draw(bg)
+    draw.text(xy=(590, 597), text=sour_name.upper(), fill="green",font=font, anchor='mm')
 
     bg.save(img_path)
 
@@ -129,17 +172,18 @@ def fb_post(post_u,Source_v):
         image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
         image_get = os.path.join(Image_folder,image_n+".png")
         images_list.append(image_get)
-    
-    for qw in internelImage:
-        print(qw)
-        image_n = download_img(qw['data-src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".png")
-        images_list.append(image_get)
+    try:
+        for qw in internelImage:
+            image_n = download_img(qw['src'],Image_folder)
+            image_get = os.path.join(Image_folder,image_n+".png")
+            images_list.append(image_get)
 
-    for qw12 in internelImage_1:
-        image_n = download_img(qw12['data-src'],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".png")
-        images_list.append(image_get)
+        for qw12 in internelImage_1:
+            image_n = download_img(qw12['src'],Image_folder)
+            image_get = os.path.join(Image_folder,image_n+".png")
+            images_list.append(image_get)
+    except:
+        pass        
     
     break_long_title(str(aaa1))
     img_resize(images_list[0])
@@ -173,9 +217,9 @@ if __name__ == "__main__":
     
     ######################################################
     print(" === start project ==== ")
-
+    # logging.basicConfig(filename="facebook_automation_log.log", level=logging.INFO)
     while True:
-        source_list = ["techllog"]
+        source_list = check_site_status()
         for sour_name in source_list:
 
             vari = Variable(sour_name)
@@ -189,14 +233,10 @@ if __name__ == "__main__":
             if (os.path.exists(Image_folder)) is not True:
                 os.mkdir(Image_folder)
             check_post = main(vari[0],vari[1])
-            # try:
             if check_post is not False:
                 fb_post(check_post,vari[0])
                 shutil.rmtree(Image_folder)
                 print("done = ",sour_name)
             else:
                 pass  
-            # except:         
-            #     print("=================== please check the tocken ======================")    
         time.sleep(15)
-        
