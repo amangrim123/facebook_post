@@ -28,6 +28,5 @@ def Variable(source_name):
     "PAGE_TOKEN" : facebook_table[10],
     "IMAGE_SRC": facebook_table[11],
   }
-  print(variables['POST_TIME'])
 
   return variables,mydb
