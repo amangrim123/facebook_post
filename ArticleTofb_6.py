@@ -35,7 +35,7 @@ def check_site_status():
 
     mycursor = mydb.cursor()
 
-    sql = "SELECT Source_Name FROM post_fb where Status = '0'"
+    sql = "SELECT Source_Name FROM post_fb where status = '1'"
 
     mycursor.execute(sql)
 
@@ -217,26 +217,32 @@ if __name__ == "__main__":
     
     ######################################################
     print(" === start project ==== ")
-    # logging.basicConfig(filename="facebook_automation_log.log", level=logging.INFO)
+    logging.basicConfig(filename="facebook_automation_log.log", level=logging.INFO)
     while True:
-        source_list = check_site_status()
-        for sour_name in source_list:
+        try:
+            source_list = check_site_status()
+            for sour_name in source_list:
 
-            vari = Variable(sour_name)
-            ######################## define #############################
+                vari = Variable(sour_name)
+                ######################## define #############################
 
-            # vari[0] is all variable
-            # vari[1] is database
+                # vari[0] is all variable
+                # vari[1] is database
 
-            ##############################################################
+                ##############################################################
 
-            if (os.path.exists(Image_folder)) is not True:
-                os.mkdir(Image_folder)
-            check_post = main(vari[0],vari[1])
-            if check_post is not False:
-                fb_post(check_post,vari[0])
-                shutil.rmtree(Image_folder)
-                print("done = ",sour_name)
-            else:
-                pass  
-        time.sleep(15)
+                if (os.path.exists(Image_folder)) is not True:
+                    os.mkdir(Image_folder)
+                check_post = main(vari[0],vari[1])
+                try:
+                    if check_post is not False:
+                        fb_post(check_post,vari[0])
+                        shutil.rmtree(Image_folder)
+                        print("done = ",sour_name)
+                    else:
+                        pass  
+                except:         
+                    logging.error(f"=================== please check the tocken for {sour_name} ======================")    
+            time.sleep(15)
+        except Exception as eee:
+            logging.error(eee)
