@@ -27,9 +27,9 @@ def break_long_title(my_txt):
 
 def check_site_status():
     mydb = mysql.connector.connect(  
-        host="64.227.176.243",
-        user="phpmyadmin",
-        password="Possibilities123.@",
+        host="3.140.57.116",
+        user="wp_raj1",
+        password="rajPassword95$",
         database="facebook_post"
     )
 
@@ -89,8 +89,8 @@ def add_text_on_image(img_path):
     rr2 = rr1.read()
    
     # Create font
-    # font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
-    font = ImageFont.truetype('fonts\ARLRDBD.TTF',30)
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 30,encoding="unic")
+    # font = ImageFont.truetype('fonts\ARLRDBD.TTF')
 
     # Create piece of canvas to draw text on and blur
     blurred = Image.new('RGBA', bg.size)
@@ -221,9 +221,8 @@ if __name__ == "__main__":
     while True:
         try:
             source_list = check_site_status()
-            print(source_list)
             for sour_name in source_list:
-                print(sour_name)
+                # logging.info(sour_name)
 
                 vari = Variable(sour_name)
                 ######################## define #############################

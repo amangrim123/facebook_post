@@ -222,6 +222,7 @@ if __name__ == "__main__":
         try:
             source_list = check_site_status()
             for sour_name in source_list:
+                # logging.info(sour_name)
 
                 vari = Variable(sour_name)
                 ######################## define #############################
