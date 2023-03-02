@@ -4,9 +4,9 @@ import mysql.connector
 def Variable(source_name):
 
   mydb = mysql.connector.connect(  
-      host="64.227.176.243",
-      user="phpmyadmin",
-      password="Possibilities123.@",
+      host="3.140.57.116",
+      user="wp_raj1",
+      password="rajPassword95$",
       database="facebook_post"
   )
 
@@ -28,5 +28,4 @@ def Variable(source_name):
     "PAGE_TOKEN" : facebook_table[10],
     "IMAGE_SRC": facebook_table[11],
   }
-
   return variables,mydb

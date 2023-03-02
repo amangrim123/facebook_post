@@ -27,9 +27,9 @@ def break_long_title(my_txt):
 
 def check_site_status():
     mydb = mysql.connector.connect(  
-        host="64.227.176.243",
-        user="phpmyadmin",
-        password="Possibilities123.@",
+        host="3.140.57.116",
+        user="wp_raj1",
+        password="rajPassword95$",
         database="facebook_post"
     )
 
