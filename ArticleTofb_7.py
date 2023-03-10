@@ -166,12 +166,15 @@ def fb_post(post_u,Source_v):
 
     with open(r"title1.txt","w") as save1:
         save1.write(str(aaa1))
-
-    for aa in feature_image:
-        # print(aa[Source_v['IMAGE_SRC']])
-        image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
-        image_get = os.path.join(Image_folder,image_n+".png")
-        images_list.append(image_get)
+    try:
+        for aa in feature_image:
+            # print(aa[Source_v['IMAGE_SRC']])
+            image_n = download_img(aa[Source_v['IMAGE_SRC']],Image_folder)
+            image_get = os.path.join(Image_folder,image_n+".png")
+            images_list.append(image_get)
+    except:
+        pass        
+    
     try:
         for qw in internelImage:
             image_n = download_img(qw['src'],Image_folder)
